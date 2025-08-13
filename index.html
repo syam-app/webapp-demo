@@ -5,7 +5,7 @@
   <title>Form ke Google Sheets</title>
 </head>
 <body>
-  <h1>Form Kontak</h1>
+  <h1>Form order</h1>
   <form id="form">
     <input type="text" name="nama" placeholder="Nama" required><br><br>
     <input type="email" name="email" placeholder="Email" required><br><br>
@@ -15,28 +15,25 @@
 
   <p id="status"></p>
 
-<script>
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyVw_baWhC4YsMr_yOCaR-wdP2KV9mtDTNvEpuZE8jZS8dwXz85EQg649gVZd7ckdvB/exec';
-const form = document.getElementById('form');
-const status = document.getElementById('status');
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyhY7lif83ZKh8gcGzwXCtQJ5UWJEAsrJB95NGCbisTAkmlmqQAa8743lrv9IEW98fAgw/exec';
+    const form = document.getElementById('form');
+    const status = document.getElementById('status');
 
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  
-  fetch(scriptURL, {
-    method: 'POST',
-    body: new FormData(form)
-  })
-  .then(response => {
-    status.textContent = "Data berhasil dikirim!";
-    form.reset();
-  })
-  .catch(error => {
-    status.textContent = "Gagal mengirim data.";
-    console.error('Error!', error.message);
-  });
-});
-</script>
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      status.textContent = "Mengirim...";
 
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+          status.textContent = "Data berhasil dikirim!";
+          form.reset();
+        })
+        .catch(error => {
+          status.textContent = "Gagal mengirim data.";
+          console.error('Error!', error.message);
+        });
+    });
+  </script>
 </body>
 </html>
