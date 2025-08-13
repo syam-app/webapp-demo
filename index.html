@@ -58,8 +58,7 @@ document.getElementById('kelurahan').addEventListener('input', function() {
     try {
       const res = await fetch(`${GAS_WEB_APP_URL}?keyword=${encodeURIComponent(keyword)}`);
       const data = await res.text(); // langsung parse JSON
-      console.log(text); 
-      // console.log(data); // bisa di-uncomment untuk debugging
+      console.log(data); // bisa di-uncomment untuk debugging
 
       if (data.error) {
         resultsDiv.innerHTML = `<div class='p-2 text-danger'>${data.error}</div>`;
