@@ -57,20 +57,16 @@ document.getElementById('kelurahan').addEventListener('input', function() {
   timeout = setTimeout(async () => {
     try {
       const res = await fetch(`${GAS_WEB_APP_URL}?keyword=${encodeURIComponent(keyword)}`);
-      const data = await res.text(); // langsung parse JSON
-      console.log(data); // bisa di-uncomment untuk debugging
+      const data = await res.json();
 
-      if (data.error) {
-        resultsDiv.innerHTML = `<div class='p-2 text-danger'>${data.error}</div>`;
-        return;
-      }
+      const resultsArray = Array.isArray(data.result) ? data.result : [];
 
-      if (!data.data || data.data.length === 0) {
+      if (resultsArray.length === 0) {
         resultsDiv.innerHTML = "<div class='p-2 text-danger'>Tidak ada hasil ditemukan</div>";
         return;
       }
 
-      resultsDiv.innerHTML = data.data.slice(0,50).map(item => `
+      resultsDiv.innerHTML = resultsArray.slice(0,50).map(item => `
         <div class="result-item" 
              data-kel="${item.desakel}" 
              data-kec="${item.kecamatan}" 
