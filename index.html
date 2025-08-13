@@ -15,36 +15,28 @@
 
   <p id="status"></p>
 
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyVw_baWhC4YsMr_yOCaR-wdP2KV9mtDTNvEpuZE8jZS8dwXz85EQg649gVZd7ckdvB/exec'; // Ganti dengan URL script kamu
-    const form = document.getElementById('form');
-    const status = document.getElementById('status');
+<script>
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyVw_baWhC4YsMr_yOCaR-wdP2KV9mtDTNvEpuZE8jZS8dwXz85EQg649gVZd7ckdvB/exec';
+const form = document.getElementById('form');
+const status = document.getElementById('status');
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  
+  fetch(scriptURL, {
+    method: 'POST',
+    body: new FormData(form)
+  })
+  .then(response => {
+    status.textContent = "Data berhasil dikirim!";
+    form.reset();
+  })
+  .catch(error => {
+    status.textContent = "Gagal mengirim data.";
+    console.error('Error!', error.message);
+  });
+});
+</script>
 
-      const formData = {
-        nama: form.nama.value,
-        email: form.email.value,
-        pesan: form.pesan.value
-      };
-
-      fetch(scriptURL, {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => {
-        status.textContent = "Data berhasil dikirim!";
-        form.reset();
-      })
-      .catch(error => {
-        status.textContent = "Gagal mengirim data.";
-        console.error('Error!', error.message);
-      });
-    });
-  </script>
 </body>
 </html>
