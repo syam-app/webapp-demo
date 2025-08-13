@@ -17,26 +17,10 @@
   <h3 class="mb-4">Form Alamat dengan Autocomplete Kelurahan</h3>
   
   <div class="mb-3">
-    <label class="form-label">Kelurahan / Desa</label>
-    <input type="text" id="kelurahan" class="form-control" placeholder="Ketik nama kelurahan...">
+    <label class="form-label">Alamat</label>
+    <input type="text" id="kelurahan" class="form-control" placeholder="Ketik nama kecamatan...">
     <div id="results"></div>
   </div>
-  
-  <div class="mb-3">
-    <label class="form-label">Kecamatan</label>
-    <input type="text" id="kecamatan" class="form-control" readonly>
-  </div>
-  
-  <div class="mb-3">
-    <label class="form-label">Kabupaten / Kota</label>
-    <input type="text" id="kabupaten" class="form-control" readonly>
-  </div>
-  
-  <div class="mb-3">
-    <label class="form-label">Provinsi</label>
-    <input type="text" id="provinsi" class="form-control" readonly>
-  </div>
-</div>
 
 <script>
 const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzGuxuqEVW3QLnaK0IEqTgF3tepHyaY9OqlQv1nl7ijAmNOREeV9HrMB6upIPWLeHiA/exec";
@@ -79,11 +63,11 @@ document.getElementById('kelurahan').addEventListener('input', function() {
 
       document.querySelectorAll('.result-item').forEach(el => {
         el.addEventListener('click', () => {
-          document.getElementById('kelurahan').value = el.dataset.kel;
-          document.getElementById('kecamatan').value = el.dataset.kec;
-          document.getElementById('kabupaten').value = el.dataset.kab;
-          document.getElementById('provinsi').value = el.dataset.prov;
-          resultsDiv.innerHTML = "";
+          // Format satu baris: kelurahan, kecamatan, kabupaten, provinsi
+          const fullAddress = `${el.dataset.kel}, ${el.dataset.kec}, ${el.dataset.kab}, ${el.dataset.prov}`;
+          document.getElementById('kelurahan').value = fullAddress;
+
+          resultsDiv.innerHTML = ""; // hilangkan hasil pencarian
         });
       });
 
